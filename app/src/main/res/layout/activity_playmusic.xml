@@ -133,45 +133,10 @@
 
 
             </FrameLayout>
-            <FrameLayout
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="50dp"
-                android:layout_below="@id/llDesc"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/bg_circle">
-
-
-                <ImageView
-                    android:id="@+id/imgprev"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_navigate_before_black_24dp" />
 
 
 
-            </FrameLayout>
 
-            <FrameLayout
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="280sp"
-                android:layout_below="@id/llDesc"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/bg_circle">
-
-
-                <ImageView
-                    android:id="@+id/imgnext"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_navigate_next_black_24dp" />
-
-
-
-            </FrameLayout>
 
         </RelativeLayout>
 
