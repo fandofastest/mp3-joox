@@ -7,6 +7,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,38 +36,72 @@
                 app:cardCornerRadius="5dp"
                 app:cardElevation="5dp">
 
+
+
                 <LinearLayout
+
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal">
 
+
                     <ImageView
+                        android:id="@+id/ic_search"
                         android:layout_width="16dp"
                         android:layout_height="32dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="20dp"
                         android:src="@drawable/ic_search"
                         android:tint="@color/colorAccent" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <com.mancj.materialsearchbar.MaterialSearchBar
+                        style="@style/MaterialSearchBarLight"
+                        app:mt_speechMode="true"
+                        app:mt_hint="Find Song"
+                        app:mt_maxSuggestionsCount="10"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="20dp"
-                        android:text="Search any song"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:id="@+id/searchBar" />
+
+
+
+
 
                 </LinearLayout>
 
+
+
             </androidx.cardview.widget.CardView>
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_marginTop="120sp"
+                        android:text="Empty"
+                        android:textColor="@color/gray_btn_bg_pressed_color"
+                        android:textSize="30sp"
+                        android:textAlignment="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:text="Find Your Songs"
+                        android:textColor="@color/gray_btn_bg_pressed_color"
+                        android:textSize="16sp"
+                        android:textAlignment="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvListMusic"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp" />

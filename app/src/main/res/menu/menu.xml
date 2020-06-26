@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/play"
+        android:title="Play"
+        android:icon="@drawable/ic_play_arrow_black_24dp"/>
+
+    <item
+        android:id="@+id/dl"
+        android:title="Download"
+        android:icon="@drawable/ic_cloud_download_black_24dp"/>
+</menu>

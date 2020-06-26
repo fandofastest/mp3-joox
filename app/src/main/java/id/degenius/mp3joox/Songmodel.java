@@ -7,8 +7,15 @@ public class Songmodel {
     private  String album;
     private String durasi;
     private String link;
+    private  String linkimage;
 
+    public String getLinkimage() {
+        return linkimage;
+    }
 
+    public void setLinkimage(String linkimage) {
+        this.linkimage = linkimage;
+    }
 
     public String getJudul() {
         return judul;
