@@ -14,19 +14,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.krossovochkin.bottomsheetmenu.BottomSheetMenu;
-
 import java.util.List;
-
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.content.ContentValues.TAG;
@@ -35,7 +34,8 @@ import static android.content.Context.DOWNLOAD_SERVICE;
 public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder> {
     List<Songmodel> songmodelList;
     public Context ctx;
-
+    private InterstitialAd mInterstitialAd;
+    SweetAlertDialog pDialog;
 
 
     public MusicAdapter(List<Songmodel> songmodelList, Context ctx) {
@@ -62,13 +62,18 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
         Glide.with(ctx)
                 .load(songmodel.getLinkimage())
                 .centerCrop()
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.drawable.ic_music)
                 .into(holder.imageView);
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new BottomSheetMenu.Builder(ctx, new BottomSheetMenu.BottomSheetMenuListener() {
+
+
+
+
+
                     @Override
                     public void onCreateBottomSheetMenu(MenuInflater inflater, Menu menu) {
                         inflater.inflate(R.menu.menu, menu);
@@ -89,7 +94,8 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
                                 intent.putExtra("penyanyi",songmodel.getPenyanyi());
                                 intent.putExtra("imgurl",songmodel.getLinkimage());
                                 intent.putExtra("link",songmodel.getLink());
-                                ctx.startActivities(new Intent[]{intent});
+
+                                showinters(intent);
 
 
                                 break;
@@ -106,10 +112,13 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
                                 long downloadFileRef = downloadFile(Uri.parse(songmodel.getLink()), Environment.DIRECTORY_DOWNLOADS, songmodel.getPenyanyi()+"-"+songmodel.getJudul()+".mp3");
 
 
+
                                 if (downloadFileRef != 0) {
+
 
                                     pDialog.setTitleText("Download Started");
                                     pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+
 
 
                                 }else {
@@ -187,5 +196,58 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
 
         }
         return downloadReference;
+    }
+
+
+    public void  showinters(final Intent intent){
+        pDialog = new SweetAlertDialog(ctx, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText("Loading");
+        pDialog.setCancelable(false);
+
+        mInterstitialAd = new InterstitialAd(ctx);
+        mInterstitialAd.setAdUnitId(Splash_Activity.inter);
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        pDialog.show();
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                pDialog.hide();
+                mInterstitialAd.show();
+                // Code to be executed when an ad finishes loading.
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                pDialog.hide();
+                ctx.startActivities(new Intent[]{intent});
+
+                // Code to be executed when an ad request fails.
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when the ad is displayed.
+            }
+
+            @Override
+            public void onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                ctx.startActivities(new Intent[]{intent});
+
+                pDialog.hide();
+                // Code to be executed when the interstitial ad is closed.
+            }
+        });
     }
 }

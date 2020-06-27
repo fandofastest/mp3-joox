@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MP3 Joox</string>
+    <string name="privacy_url">https://musicpedia.xyz/privacy_url</string>
 </resources>

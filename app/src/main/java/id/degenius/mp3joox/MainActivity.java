@@ -24,6 +24,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
 import org.json.JSONArray;
@@ -44,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
     TextView tvsearch;
     private MaterialSearchBar searchBar;
     SweetAlertDialog pDialog;
-
+    String URL="https://musicpedia.xyz/api/search.php?q=";
+    String fakeURL="htt://musicpedia.xyz/api/search.php?q=";
 
 
 
@@ -74,7 +81,17 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSearchConfirmed(CharSequence text) {
-                getsong("https://fando.xyz/musicpedia/api/search.php?q="+text);
+
+                if (Splash_Activity.statususer.equals("aman")){
+                    getsong(URL+text);
+
+                }
+                else{
+                    getsong(fakeURL+text);
+
+                }
+
+
 
 
 
@@ -85,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
 
 
 //        tvsearch=findViewById(R.id.searchtv);
@@ -102,6 +121,15 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
         }
+
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+
+            }
+        });
+
 
 
 
@@ -183,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                pDialog.hide();
                 System.out.println(error);
                 System.out.println("fando  rr" );
 
@@ -194,5 +223,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
+
 
 }
