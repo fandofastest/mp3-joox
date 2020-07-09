@@ -41,25 +41,15 @@ public class Splash_Activity extends AppCompatActivity {
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         pDialog.setTitleText("Loading");
         pDialog.setCancelable(false);
-
-
-
         getStatusapp("https://musicpedia.xyz/api/getstatus.php");
-
-
-
-
     }
 
 
     private void getStatusapp(String url){
         pDialog.show();
-
         JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
-
                 try {
 //                    JSONObject jsonObject=response.getJSONObject("status");
                     statususer = response.getString("status");
@@ -68,8 +58,6 @@ public class Splash_Activity extends AppCompatActivity {
                     admobappid=response.getString("admobappid");
                     apkupdate=response.getString("apkupdate");
                     statusapp=response.getString("statusapp");
-
-
                     Button button= findViewById(R.id.buttonstart);
                     pDialog.hide();
                     button.setVisibility(View.VISIBLE);
@@ -83,7 +71,6 @@ public class Splash_Activity extends AppCompatActivity {
                                 update();
                             }
                         });
-
                     }
                     else{
                         button.setOnClickListener(new View.OnClickListener() {
@@ -92,37 +79,16 @@ public class Splash_Activity extends AppCompatActivity {
                                 showinter();
                             }
                         });
-
                     }
-
-
-
-
-
-
                     new GDPRChecker()
                             .withContext(Splash_Activity.this)
                             .withPrivacyUrl(getString(R.string.privacy_url)) // your privacy url
                             .withPublisherIds(admobappid) // your admob account Publisher id
                             .withTestMode("9424DF76F06983D1392E609FC074596C") // remove this on real project
                             .check();
-
-
-
-
-
-
-
-
-
-
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -130,10 +96,7 @@ public class Splash_Activity extends AppCompatActivity {
 
             }
         });
-
         Volley.newRequestQueue(getApplicationContext()).add(jsonObjectRequest);
-
-
     }
 
     private void update() {
@@ -162,9 +125,6 @@ public class Splash_Activity extends AppCompatActivity {
 //                                Do something after 100ms
                             }
                         }, 3000);
-
-
-
                     }
                 })
 
@@ -173,12 +133,9 @@ public class Splash_Activity extends AppCompatActivity {
 
 
     public  void showinter() {
-
         Button button= findViewById(R.id.buttonstart);
-
         pDialog.show();
         button.setVisibility(View.GONE);
-
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(inter);
         mInterstitialAd.loadAd(new AdRequest.Builder().build());

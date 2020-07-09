@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -41,12 +42,15 @@ import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 public class MainActivity extends AppCompatActivity {
 
      List<Songmodel> listsong = new ArrayList<>();
     RecyclerView rvmusic;
     MusicAdapter musicAdapter;
     ImageView ic_search;
+    ImageView imgplay,imgpause;
     TextView tvsearch;
     private MaterialSearchBar searchBar;
     SweetAlertDialog pDialog;
@@ -61,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         rvmusic=findViewById(R.id.rvListMusic);
         ic_search=findViewById(R.id.ic_search);
+        imgplay=findViewById(R.id.imgPlay);
+        imgpause=findViewById(R.id.imgPause);
 
         searchBar = findViewById(R.id.searchBar);
         searchBar.setSpeechMode(true);
@@ -143,8 +149,20 @@ public class MainActivity extends AppCompatActivity {
 //        getsong("https://fando.xyz/musicpedia/api/search.php?q=peterpan");
 
 
+        imgpause.setVisibility(View.GONE);
+        imgplay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, PlaymusicActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivityIfNeeded(intent, 0);
+                startActivity(intent);
 
 
+
+            }
+        });
 
 
 
